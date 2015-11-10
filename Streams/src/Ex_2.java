@@ -9,13 +9,15 @@ public class Ex_2 {
 	public static void main(String[] args) {
 
 		FileInputStream in = null;
-		File out = null;
+		String out = null;
+		byte chunk = null;
 
 		// Copiem fitxers
 		try {
-			in = new FileInputStream("exemple3.txt");
-			out = new File("concatenat1e.txt");
-
+			in = new FileInputStream("concatenate.txt");
+			out = "extract";
+			chunk = (byte)12;
+			
 			boolean salida = out.exists();
 			if (salida) {
 				in.close();
@@ -23,7 +25,7 @@ public class Ex_2 {
 			}
 			FileOutputStream sortida = new FileOutputStream(out);
 
-			copyFiles(in, sortida);
+			separateFiles(in, sortida, chunk);
 
 			if (sortida != null) {
 				sortida.close();
@@ -38,8 +40,16 @@ public class Ex_2 {
 
 	}
 
-	public static void separateFiles(FileInputStream bigFile, FileOutputStream baseName, byte chunkSize) {
-		
-		
+	public static void separateFiles(FileInputStream bigFile, String baseName, byte chunkSize) throws IOException {
+		byte[] chunk = new byte[chunkSize];
+		int c;
+		int count = 0;
+
+		while ((c = bigFile.read(chunk)) > 0){
+			count ++;
+
+			FileOutputStream out = new FileOutputStream(baseName+count+".txt");
+			
+		}
 	}
 }
